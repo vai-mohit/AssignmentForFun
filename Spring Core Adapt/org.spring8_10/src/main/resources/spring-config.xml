@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+"
+>
+   <context:annotation-config/>
+
+
+   <bean id = "triangle" class = "org.example.Triangle"  abstract="true" >
+      <property name="p1" ref="0point" />
+      <property name="p2">
+         <bean class="org.example.Point">
+            <property name="x" value="20" />
+            <property name="y" value="20" />
+         </bean>
+      </property>
+      <property name="p3" ref="point2" />
+      <property name="l1" >
+         <list>
+            <ref bean= "0point" />
+         </list>
+      </property>
+
+   </bean>
+   <bean name="triangleChild" parent="triangle">
+      <property name="l1">
+         <list merge="true">
+            <ref bean ="point2" />
+         </list>
+      </property>
+   </bean>
+   <bean id ="0point" class="org.example.Point">
+      <property name="x" value="${0point.x}" />
+      <property name="y" value="${0point.y}" />
+   </bean>
+
+   <bean id ="point2" class="org.example.Point">
+      <property name="x" value="10" />
+      <property name="y" value="0" />
+   </bean>
+
+   <alias name="triangle" alias="triangle2" />
+
+<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer" >
+   <property name="locations" value="pointsvonfig.properties" />
+</bean>
+   <bean class="org.example.DisplayNameBeanProcessor" />
+</beans>

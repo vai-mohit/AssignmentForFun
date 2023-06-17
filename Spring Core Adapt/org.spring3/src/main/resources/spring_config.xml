@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans.xsd
+               http://www.springframework.org/schema/context
+               http://www.springframework.org/schema/context/spring-context.xsd">
+<bean id="bankAccount1" class="org.spring3.BankAccount" >
+	<property name="accountId" value="1" />
+	<property name="accountHolderName" value="Mohit" />
+	<property name="accountType" value="Saving" />
+	<property name="accountBalance" value="1000000" />
+</bean>
+<bean id="bankAccount2" class="org.spring3.BankAccount" >
+	<property name="accountId" value="2" />
+	<property name="accountHolderName" value="Mohit" />
+	<property name="accountType" value="Current" />
+	<property name="accountBalance" value="3000000" />
+</bean>
+<bean id="repo" class="java.util.ArrayList" >
+	<constructor-arg>
+		<list>
+			<ref bean="bankAccount1" />
+			<ref bean="bankAccount2" />
+		</list>
+	</constructor-arg>	
+</bean>
+<bean id="bankAccountepositoryImpl" class="org.spring3.BankAccountepositoryImpl" autowire="byName" ></bean>
+<bean id="bankAccountServiceImpl" class="org.spring3.BankAccountServiceImpl" autowire="byType" >
+</bean>
+<bean id="bankAccountController" class="org.spring3.BankAccountController" autowire="constructor"></bean>
+</beans>
